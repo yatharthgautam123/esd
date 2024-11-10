@@ -1,0 +1,25 @@
+module demultiplexer(input s1, input s0, input e, input i, output a, output b,  output c, output d);
+    assign a = i&e&~s1&~s0;
+    assign b = i&e&~s1&s0;
+    assign c = i&e&s1&~s0;
+    assign d = i&e&s1&s0;
+endmodule
+
+module test;
+    reg s1,s0,e,i;
+    wire a,b,c,d;
+    demultiplexer obj(s1,s0,e,i,a,b,c,d);
+    initial begin
+    i=1;e=0;s1=0;s0=0;
+    #20 i=1;e=1;s1=0;s0=0;
+    #20 i=1;e=1;s1=0;s0=1;
+    #20 i=1;e=1;s1=1;s0=0;
+    #20 i=1;e=1;s1=1;s0=1;
+    #20 $finish;
+    end
+    initial begin
+    $monitor("i=%b, e=%b, s1=%b, s0=%b | a=%b, b=%b, c=%b, d=%b\n", i,e,s1,s0,a,b,c,d);
+    end
+endmodule
+    
+    
