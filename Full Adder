@@ -1,0 +1,25 @@
+module full_adder(input a, input b, input Cin, output S, output Cout);
+    assign S = a^b^Cin;
+    assign Cout = (a&b) | (a&Cin) | (b&Cin);
+endmodule
+
+module test;
+    reg a,b,Cin;
+    wire S,Cout;
+    full_adder obj(a,b,Cin,S,Cout);
+    initial begin
+    a=0;b=0;Cin=0;
+    #20 a=0;b=0;Cin=1;
+    #20 a=0;b=1;Cin=0;
+    #20 a=0;b=1;Cin=1;
+    #20 a=1;b=0;Cin=0;
+    #20 a=1;b=0;Cin=1;
+    #20 a=1;b=1;Cin=0;
+    #20 a=1;b=1;Cin=1;
+    #20 $finish;
+    end
+    initial begin
+    $display("INPUT \t OUTPUT");
+    $monitor("a=%b, b=%b, Cin=%b, S=%b, Cout=%b\n",a,b,Cin,S,Cout);
+    end
+endmodule
