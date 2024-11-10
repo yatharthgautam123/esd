@@ -1,0 +1,21 @@
+module half_adder(input a, input b, output S, output Cout);
+    assign S = a^b;
+    assign Cout = a&b;
+endmodule
+
+module test;
+    reg a,b;
+    wire S,Cout;
+    half_adder obj(a,b,S,Cout);
+    initial begin
+    a=0;b=0;
+    #20 a=0;b=1;
+    #20 a=1;b=0;
+    #20 a=1;b=1;
+    #20 $finish;
+    end
+    initial begin
+    $display("INPUT \t OUTPUT");
+    $monitor("a=%b, b=%b, S=%b, Cout=%b\n",a,b,S,Cout);
+    end
+endmodule
