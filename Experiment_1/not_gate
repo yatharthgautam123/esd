@@ -1,0 +1,19 @@
+module not_gate(input a, output z);
+    assign z = ~a;
+endmodule
+
+module test;
+    reg a;
+    wire z;
+    not_gate obj(a,z);
+    initial begin
+    a=0;
+    #20 a=1;
+    #20 a=0;
+    #20 $finish;
+    end
+    initial begin
+    $display("INPUT \t OUTPUT");
+    $monitor("a=%b, z=%b\n",a,z);
+    end
+endmodule
