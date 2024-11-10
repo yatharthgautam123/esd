@@ -1,0 +1,22 @@
+module encoder(input Y0, input Y1, input Y2, input Y3, output a, output b);
+    assign a = Y2 | Y3;
+    assign b = Y1 | Y3;
+endmodule
+
+module test;
+    reg Y0, Y1, Y2, Y3;
+    wire a, b;
+    encoder obj(Y0, Y1, Y2, Y3, a, b);
+
+    initial begin
+        Y0 = 1; Y1 = 0; Y2 = 0; Y3 = 0;
+        #20 Y0 = 0; Y1 = 1; Y2 = 0; Y3 = 0;
+        #20 Y0 = 0; Y1 = 0; Y2 = 1; Y3 = 0;
+        #20 Y0 = 0; Y1 = 0; Y2 = 0; Y3 = 1;
+        #20 $finish;
+    end
+
+    initial begin
+        $monitor("Y0=%b, Y1=%b, Y2=%b, Y3=%b | a=%b, b=%b\n",Y0, Y1, Y2, Y3, a, b);
+    end
+endmodule
